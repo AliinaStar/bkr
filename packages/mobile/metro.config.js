@@ -1,9 +1,21 @@
 const { getDefaultConfig } = require('expo/metro-config');
 const path = require('path');
 
-const config = getDefaultConfig(__dirname);
+const projectRoot = __dirname;
+const workspaceRoot = path.resolve(projectRoot, '../..');
 
-config.watchFolders = [path.resolve(__dirname)];
+const config = getDefaultConfig(projectRoot);
+
+// Для monorepo - дивимося на всі workspace packages
+config.watchFolders = [workspaceRoot];
+
+config.resolver.nodeModulesPaths = [
+  path.resolve(projectRoot, 'node_modules'),
+  path.resolve(workspaceRoot, 'node_modules'),
+];
+
 config.resolver.platforms = ['ios', 'android', 'web'];
+
+config.resolver.unstable_enablePackageExports = true;
 
 module.exports = config;
