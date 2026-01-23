@@ -1,0 +1,45 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Expo
+.expo/
+dist/
+
+# Build
+build/
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv
+pip-log.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Mobile specific
+*.apk
+*.aab
+*.ipa
+ios/Pods/
+android/app/build/
