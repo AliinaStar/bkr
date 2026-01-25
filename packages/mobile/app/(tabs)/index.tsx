@@ -1,64 +1,97 @@
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { router } from "expo-router";
 
 export default function HomeScreen() {
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.motto}>Done is better than perfect.</Text>
+        {/* <Text style={styles.dateText}>24 січня</Text>  */}
+        <Text style={styles.quoteText}>
+          Маленькі кроки щодня → великі зміни
+        </Text>
       </View>
 
-      <View style={styles.goalsSection}>
-        <Text style={styles.sectionTitle}>Що ти сьогодні зробила для покращення здоров'я?</Text>
-        
-        <Pressable style={styles.goalButton}>
-          <Text style={styles.goalText}>За тиждень</Text>
+      {/* Goals */}
+      <View style={styles.goals}>
+        <Pressable
+          style={styles.goalCard}
+          onPress={() => router.push("/goal/1")}
+        >
+          <Text style={styles.goalText}>Ціль 1</Text>
         </Pressable>
-        
-        <Pressable style={styles.goalButton}>
-          <Text style={styles.goalText}>За місяць</Text>
-        </Pressable>
-        
-        <Pressable style={styles.goalButton}>
-          <Text style={styles.goalText}>За рік</Text>
+
+        <Pressable
+          style={styles.goalCard}
+          onPress={() => router.push("/goal/2")}
+        >
+          <Text style={styles.goalText}>Ціль 2</Text>
         </Pressable>
       </View>
-    </ScrollView>
+
+      {/* Add button */}
+      <Pressable
+        style={styles.addButton}
+        onPress={() => router.push("/goal")}
+      >
+        <Text style={styles.addButtonText}>＋</Text>
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-    backgroundColor: '#C4B8E8',
-    padding: 20,
-    borderRadius: 12,
-    margin: 16,
-  },
-  motto: {
-    fontSize: 16,
-    color: '#000',
-    textAlign: 'left',
-  },
-  goalsSection: {
     padding: 16,
+    backgroundColor: "#fff",
   },
-  sectionTitle: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 16,
+
+  header: {
+    marginBottom: 24,
   },
-  goalButton: {
-    backgroundColor: '#C4B8E8',
-    padding: 20,
-    borderRadius: 25,
-    marginBottom: 12,
-    alignItems: 'center',
+
+  dateText: {
+    fontSize: 16,
+    color: "#666",
   },
+
+  quoteText: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginTop: 8,
+  },
+
+  goals: {
+    gap: 12,
+  },
+
+  goalCard: {
+  backgroundColor: "#E6D9FF",
+  padding: 16,
+  borderRadius: 12,
+},
+
   goalText: {
     fontSize: 16,
-    color: '#000',
+    fontWeight: "500",
+},
+
+  addButton: {
+    position: "absolute",
+    right: 20,
+    bottom: 20,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: "#7C3AED",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  addButtonText: {
+    color: "#fff",
+    fontSize: 28,
+    lineHeight: 30,
   },
 });
