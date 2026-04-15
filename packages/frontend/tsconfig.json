@@ -3,6 +3,9 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
+      "@/*": [
+        "./*"
+      ],
       "@bcr-app/shared": [
         "../shared/src"
       ]
