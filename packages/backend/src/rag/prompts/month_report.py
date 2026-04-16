@@ -63,7 +63,6 @@ Month: {month_name} {year}
 Language: {language}
 User gender: {gender}
 Goals: {goals_block}
-Metrics: 
 Goal metrics:
 {goal_metrics_block}
 Active days this month: {active_days}

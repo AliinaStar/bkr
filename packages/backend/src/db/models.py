@@ -26,12 +26,8 @@ class Entry(Base):
         Integer,
         CheckConstraint("productivity_score BETWEEN 1 AND 5", name="check_productivity_score")
     )
-    embedding_mini: Mapped[list[float] | None] = mapped_column(
-        Vector(384),  # all-MiniLM-L6-v2
-        nullable=True
-    )
-    embedding_e5: Mapped[list[float] | None] = mapped_column(
-        Vector(384),  # e5-base
+    embedding: Mapped[list[float] | None] = mapped_column(
+        Vector(768),  # Alibaba-NLP/gte-multilingual-base
         nullable=True
     )
 

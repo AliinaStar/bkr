@@ -106,6 +106,13 @@ class EvaluationLogger:
         self.output_path = output_path
         self._langfuse = langfuse
 
+    def _append_to_csv(self, result: EvaluationResult) -> None:
+        """Дописує один рядок у CSV одразу після оцінки — щоб не втратити дані якщо впаде."""
+        import os
+        row = pd.DataFrame([result.to_dict()])
+        write_header = not os.path.exists(self.output_path)
+        row.to_csv(self.output_path, mode='a', header=write_header, index=False)
+
     def log(self, result: EvaluationResult) -> None:
         """Append result and log all numeric metrics to Langfuse.
 
@@ -116,6 +123,7 @@ class EvaluationLogger:
             result: Completed evaluation result to record.
         """
         self.results.append(result)
+        self._append_to_csv(result)
         session_id = f"{result.method}_{result.period_type}"
 
         with self._langfuse.start_as_current_span(
@@ -132,6 +140,7 @@ class EvaluationLogger:
                 user_id=str(result.user_id),
                 session_id=session_id,
                 tags=[result.method, result.period_type],
+                output=result.generated_text,
             )
             for field in _FLOAT_METRIC_FIELDS:
                 value: float | int | None = getattr(result, field)

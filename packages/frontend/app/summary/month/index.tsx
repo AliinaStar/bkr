@@ -1,33 +1,45 @@
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, ScrollView, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
 
-export default function WeekList() {
+const MONTHS = [
+  { id: 'm1', label: 'June 2025',     score: '4.0', days: '24/30', headline: 'The month you figured out your rhythm' },
+  { id: 'm2', label: 'May 2025',      score: '3.6', days: '20/31', headline: 'Slow start, strong finish' },
+  { id: 'm3', label: 'April 2025',    score: '3.8', days: '22/30', headline: 'Finding consistency in small habits' },
+];
+
+export default function MonthList() {
   const router = useRouter();
-  const weeks = [
-    { id: 1, title: 'Тиждень 1' },
-    { id: 2, title: 'Тиждень 2' },
-    { id: 3, title: 'Тиждень 3' },
-  ];
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>Тижні 📅</Text>
-      {weeks.map(week => (
+    <ScrollView style={s.scroll} contentContainerStyle={s.content}>
+      <Text style={s.header}>Monthly reports</Text>
+      {MONTHS.map(m => (
         <TouchableOpacity
-          key={week.id}
-          style={styles.item}
-          onPress={() => router.push(`/summary/week/${week.id}`)}
+          key={m.id}
+          style={s.card}
+          onPress={() => router.push(`/summary/month/${m.id}`)}
+          activeOpacity={0.7}
         >
-          <Text style={styles.itemText}>{week.title}</Text>
+          <View style={s.cardTop}>
+            <Text style={s.cardLabel}>{m.label}</Text>
+            <Text style={s.cardScore}>{m.score} avg</Text>
+          </View>
+          <Text style={s.cardHeadline}>{m.headline}</Text>
+          <Text style={s.cardDays}>{m.days} active days</Text>
         </TouchableOpacity>
       ))}
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { padding: 20 },
-  header: { fontSize: 24, fontWeight: '700', marginBottom: 20, color: '#9B8FD9' },
-  item: { padding: 15, borderRadius: 10, backgroundColor: '#F3F0FF', marginBottom: 10 },
-  itemText: { fontSize: 18 },
+const s = StyleSheet.create({
+  scroll: { flex: 1, backgroundColor: '#F5F4F0' },
+  content: { padding: 16, gap: 10, paddingBottom: 32 },
+  header: { fontSize: 13, fontWeight: '600', color: '#888780', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 },
+  card: { backgroundColor: '#FFFFFF', borderRadius: 16, padding: 14 },
+  cardTop: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
+  cardLabel: { fontSize: 15, fontWeight: '600', color: '#2C2C2A' },
+  cardScore: { fontSize: 13, color: '#7F77DD', fontWeight: '500' },
+  cardHeadline: { fontSize: 13, color: '#5F5E5A', marginBottom: 4, lineHeight: 18 },
+  cardDays: { fontSize: 12, color: '#B4B2A9' },
 });
